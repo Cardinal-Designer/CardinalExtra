@@ -1,0 +1,11 @@
+.cocos-project.json
+/build
+/Classes/R
+/.vscode
+
+/cocos2d/*
+!/cocos2d/cocos/
+/cocos2d/cocos/*
+!/cocos2d/cocos/platform
+/cocos2d/cocos/platform/*
+!/cocos2d/cocos/platform/desktop

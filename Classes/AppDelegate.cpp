@@ -33,6 +33,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 {
 	// initialize director
 	auto director = Director::getInstance();
+
 	auto glview = director->getOpenGLView();
 	GLViewImpl* ret;
 
@@ -48,16 +49,13 @@ bool AppDelegate::applicationDidFinishLaunching()
 	director->setDisplayStats(false);	// 禁用 FPS信息
 	director->setAnimationInterval(1.0f / 60.f);	// 设定FPS速率
 
-	auto MouseEvents = EventListenerMouse::create();
-	
 	// Test
 	FileUtils::getInstance()->addSearchPath("/home/henryzeng/App/CB");
 	// Test
-	
-	DragonBonesImport::Control = Control; // 拷贝Control模块指针
-	auto scene = DragonBonesImport::createScene(); // 创建场景
 
-	director->runWithScene(scene);
+	auto Dragonbones_scene = DragonBonesImport::CreateScene(Control,"Chen_Build_ske.json","Chen_Build_tex.json","armatureName"); // 创建场景
+
+	director->runWithScene(Dragonbones_scene);
 
 	
 	return true;

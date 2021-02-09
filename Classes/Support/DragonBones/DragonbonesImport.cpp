@@ -1,20 +1,41 @@
 #include "DragonbonesImport.h"
 
-ControlBox *DragonBonesImport::Control = NULL; // 初始化指针
+void DragonBonesImport::Init_Layer(std::string DragonBonesData_,std::string TextureAtlasData_,std::string armatureName_){
+    DragonBonesData = DragonBonesData_;
+    TextureAtlasData = TextureAtlasData_;
+    armatureName = armatureName_;
 
-void DragonBonesImport::_onStart(){
-    const auto factory = dragonBones::CCFactory::getFactory();
+    SceneInit();
 
-    factory->loadDragonBonesData("Chen_Build_ske.json");
-    factory->loadTextureAtlasData("Chen_Build_tex.json");
+    Control->setDragonBones(factory,armatureDisplay);
+}
 
-    const auto armatureDisplay = factory->buildArmatureDisplay("armatureName");
-    armatureDisplay->getAnimation()->play("Move", 0);
+void DragonBonesImport::SceneInit(){
 
-    armatureDisplay->setPosition(-150.0f, -250.0f);
+    factory->loadDragonBonesData(DragonBonesData);
+    factory->loadTextureAtlasData(TextureAtlasData);
+
+    armatureDisplay = factory->buildArmatureDisplay(armatureName);
+    
     addChild(armatureDisplay);
 
     armatureDisplay->setScale(1.0f);
+    Control->setWindowsOnTop(true);
+
+    auto _MouseEvents = EventListenerMouse::create();
+    _MouseEvents->onMouseUp = CC_CALLBACK_1(DragonBonesImport::Mouse_onMouseUp,this);
+    _MouseEvents->onMouseMove = CC_CALLBACK_1(DragonBonesImport::Mouse_onMouseMove,this);
+
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(_MouseEvents,this);
 }
 
 
+void DragonBonesImport::Mouse_onMouseUp(cocos2d::Event *event){
+    cocos2d::EventMouse *e = (cocos2d::EventMouse*)event;
+    Control->Mouse_onMouseUp(e);
+}
+
+void DragonBonesImport::Mouse_onMouseMove(cocos2d::Event *event){
+    cocos2d::EventMouse *e = (cocos2d::EventMouse*)event;
+    Control->Mouse_onMouseMove(e);
+}

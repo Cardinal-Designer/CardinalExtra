@@ -33,6 +33,7 @@ endif()
 list(APPEND GAME_SOURCE
     Classes/Support/DragonBones/DragonbonesImport.cpp
     Classes/Support/Controls/Controller.cpp
+    Classes/Support/Controls/MouseEvents.cpp
     Classes/AppDelegate.cpp
     Classes/dragonBones/geom/Transform.cpp
     Classes/dragonBones/geom/Point.cpp

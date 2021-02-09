@@ -6,7 +6,7 @@
 class Cardinal_draw : public cocos2d::LayerColor
 {
 protected:
-	virtual void _onStart() = 0;
+	virtual void SceneInit() = 0;
 
 public:
 
@@ -16,11 +16,8 @@ public:
 		{
 			return false;
 		}
-
-		const auto& stageSize = cocos2d::Director::getInstance()->getVisibleSize();
-        setPosition(stageSize.width, stageSize.height);
-
-        _onStart();
+		
+        setPosition(0, 0);
 
         return true;
 	}

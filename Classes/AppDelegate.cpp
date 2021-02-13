@@ -1,11 +1,7 @@
 #include "AppDelegate.h"
 #include "./Support/DragonBones/DragonbonesImport.h"
-#include "./Support/Controls/Controller.h"
-
 
 USING_NS_CC;
-
-ControlBox *Control = new ControlBox;
 
 AppDelegate::AppDelegate()
 {
@@ -49,11 +45,10 @@ bool AppDelegate::applicationDidFinishLaunching()
 	director->setDisplayStats(false);	// 禁用 FPS信息
 	director->setAnimationInterval(1.0f / 60.f);	// 设定FPS速率
 
-	// Test
-	FileUtils::getInstance()->addSearchPath("/home/henryzeng/App/CB");
-	// Test
 
-	auto Dragonbones_scene = DragonBonesImport::CreateScene(Control,"Chen_Build_ske.json","Chen_Build_tex.json","armatureName"); // 创建场景
+	FileUtils::getInstance()->addSearchPath(Control->getSearchPath());
+
+	auto Dragonbones_scene = DragonBonesImport::CreateScene(); // 创建场景
 
 	director->runWithScene(Dragonbones_scene);
 

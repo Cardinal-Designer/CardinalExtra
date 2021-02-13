@@ -3,9 +3,14 @@
 /Classes/R
 /.vscode
 
+/cmake-build-debug/
+/cmake-build-release/
+
 /cocos2d/*
 !/cocos2d/cocos/
 /cocos2d/cocos/*
 !/cocos2d/cocos/platform
 /cocos2d/cocos/platform/*
 !/cocos2d/cocos/platform/desktop
+
+/BoostLib/

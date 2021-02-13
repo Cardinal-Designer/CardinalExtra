@@ -10,7 +10,7 @@
 
 |函数|涉及文件|修改方式|目的|
 |-|-|-|-|
-|[bool GLViewImpl::initWithRect()](###-bool-GLViewImpl::initWithRect()-[Add]-[In])|CCGLViewImpl-desktop.cpp|Add In|创建可以透明的无边框窗口|
+|bool GLViewImpl::initWithRect()|CCGLViewImpl-desktop.cpp|Add In|创建可以透明的无边框窗口|
 
 ## 同步修改关系
 

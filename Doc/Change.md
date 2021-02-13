@@ -16,8 +16,8 @@
 
 |函数 暴露获取创建的GLFWwindow句柄|涉及文件|修改方式|
 |-|-|-|
-|[GLFWwindow* getMainwindow()](###-GLFWwindow*-getMainwindow()-[Add]-[In])|CCGLViewImpl-desktop.cpp|Add In|
-|[GLFWwindow* GLViewImpl::getMainwindow()](###-GLFWwindow*-GLViewImpl::getMainwindow()-[Add]-[New])|CCGLViewImpl-desktop.h|Add In|
+|GLFWwindow* getMainwindow()|CCGLViewImpl-desktop.cpp|Add In|
+|GLFWwindow* GLViewImpl::getMainwindow()|CCGLViewImpl-desktop.h|Add In|
 
 ## 对 Cocos2dx 4 的引擎更改
 

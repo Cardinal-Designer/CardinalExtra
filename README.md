@@ -16,7 +16,13 @@
 
 + 或 下载Vscode安装 CMake Tools 插件并打开工程主目录，进行编译。
 
+### Step 3
++ 项目使用用 Boost 1.75.0 版本，下载后编译，并且修改CMakeLists.txt的[Boost库]段内容
 
++ 编译Boost库 ：[方法](https://www.cnblogs.com/mingzhang/p/11349808.html)
+
+### Step 4
++ 项目采用Python3.7作为标准包装环境，安装指定版本Python后修改CMakeLists.txt中[Python库]段内容
 
 ## 架构
 |底层绘图引擎|代码组织工具|编写语言|编译环境|

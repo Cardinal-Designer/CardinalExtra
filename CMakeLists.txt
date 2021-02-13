@@ -4,6 +4,20 @@ set(APP_NAME CardinalExtra)
 
 project(${APP_NAME})
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+SET(BOOST_PATH ${CMAKE_CURRENT_SOURCE_DIR}/BoostLib)
+set(Boost_INCLUDE_DIR ${BOOST_PATH}/include)
+set(Boost_LIBRARY_DIR ${BOOST_PATH}/lib)
+
+find_package(Boost 1.75.0 REQUIRED COMPONENTS python37)
+include_directories(${Boost_INCLUDE_DIR})
+link_directories(${Boost_LIBRARY_DIR})
+
+find_package(PythonLibs REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
+
+
 if(XCODE)
     if(NOT DEFINED CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET)
         SET (CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET 8.0)
@@ -31,6 +45,7 @@ endif()
 
 # add cross-platforms source files and header files 
 list(APPEND GAME_SOURCE
+    Classes/Support/Controls/getEvent.cpp
     Classes/Support/DragonBones/DragonbonesImport.cpp
     Classes/Support/Controls/Controller.cpp
     Classes/Support/Controls/MouseEvents.cpp
@@ -72,6 +87,7 @@ list(APPEND GAME_SOURCE
     Classes/dragonBones/cocos2dx/CCFactory.cpp
      )
 list(APPEND GAME_HEADER
+    Classes/wrapper.h
     Classes/Support/DragonBones/DragonbonesImport.h
     Classes/Support/Controls/Controller.h
     Classes/AppDelegate.h
@@ -155,13 +171,7 @@ list(APPEND GAME_HEADER
     Classes/dragonBones/cocos2dx/CCSlot.h
      )
 
-if(ANDROID)
-    # change APP_NAME to the share library name for Android, it's value depend on AndroidManifest.xml
-    set(APP_NAME MyGame)
-    list(APPEND GAME_SOURCE
-         proj.android/app/jni/hellocpp/main.cpp
-         )
-elseif(LINUX)
+if(LINUX)
     list(APPEND GAME_SOURCE
          proj.linux/main.cpp
          )
@@ -207,23 +217,18 @@ elseif(APPLE)
     list(APPEND GAME_SOURCE ${common_res_files})
 endif()
 
-# mark app complie info and libs info
-set(all_code_files
-    ${GAME_HEADER}
-    ${GAME_SOURCE}
-    )
-if(NOT ANDROID)
-    add_executable(${APP_NAME} ${all_code_files})
-else()
-    add_library(${APP_NAME} SHARED ${all_code_files})
-    add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos/platform/android ${ENGINE_BINARY_PATH}/cocos/platform)
-    target_link_libraries(${APP_NAME} -Wl,--whole-archive cpp_android_spec -Wl,--no-whole-archive)
-endif()
+set(all_code_files ${GAME_HEADER} ${GAME_SOURCE})
 
-target_link_libraries(${APP_NAME} cocos2d)
+add_library(${APP_NAME} SHARED ${all_code_files})
+#add_executable(${APP_NAME} ${all_code_files})
+
+
+target_link_libraries(${APP_NAME} cocos2d ${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
 target_include_directories(${APP_NAME}
         PRIVATE Classes
         PRIVATE ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
+        ${Boost_INCLUDE_DIR}
+        ${PYTHON_INCLUDE_DIRS}
 )
 
 # mark app resources
